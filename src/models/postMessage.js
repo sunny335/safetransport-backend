@@ -1,9 +1,18 @@
 const mongoose = require('mongoose');
 const postSchema = new mongoose.Schema({
-  message: String,
   name: String,
+  busNumber: String,
+  PhoneNumber: String,
+  DriverName: String,
+  DriverLicense: String,
+  DriverPhone: String,
   creator: String,
+  tags: [String],
+  creatorID: 'String',
   selectedFile: String,
+  nid: String,
+  likes: { type: [String], default: [] },
+  comments: { type: [String], default: [] },
   createdAt: {
     type: Date,
     default: new Date(),

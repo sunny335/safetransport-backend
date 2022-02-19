@@ -7,7 +7,7 @@ const {
   createPost,
   // updatePost,
   // likePost,
-  // deletePost,
+  deletePost,
   // commentPost,
 } = require('../controllers/posts.js');
 
@@ -15,10 +15,11 @@ const router = express.Router();
 // const auth = require('../common-middleware/auth.js');
 
 // router.get('/search', getPostsBySearch);
-router.get('/getmessege', getPosts);
+router.get('/getQrdata', getPosts);
 // router.get('/:id', getPost);
 
 router.post('/posts', createPost);
+router.delete('/:id', deletePost);
 // router.patch('/:id', auth, updatePost);
 // router.delete('/:id', auth, deletePost);
 // router.patch('/:id/likePost', auth, likePost);
