@@ -11,6 +11,8 @@ const postSchema = new mongoose.Schema({
   creatorID: 'String',
   selectedFile: String,
   nid: String,
+  TravelChart: String,
+  DriverImage:String,
   // likes: { type: [String], default: [] },
   // comments: { type: [String], default: [] },
   createdAt: {
