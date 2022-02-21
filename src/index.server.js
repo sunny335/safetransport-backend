@@ -13,6 +13,7 @@ const postroutes = require('./routes/posts');
 const categoryRoutes = require('./routes/category');
 const productRoutes = require('./routes/product');
 const cartRoutes = require('./routes/cart');
+const ReportRoutes = require('./routes/reports');
 
 
 // environment variable or you can say constants
@@ -40,6 +41,8 @@ app.use('/api', categoryRoutes);
 app.use('/api', productRoutes);
 app.use('/api', cartRoutes);
 app.use('/api', postroutes);
+app.use('/api', ReportRoutes);
+
 
 const port = process.env.PORT || 5000;
 
