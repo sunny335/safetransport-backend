@@ -7,7 +7,7 @@ const {
   createPost,
   // updatePost,
   // likePost,
-  deletePost,
+  // deletePost,
   // commentPost,
 } = require('../controllers/reports.js');
 
@@ -19,7 +19,7 @@ router.get('/getReportData', getPosts);
 // router.get('/:id', getPost);
 
 router.post('/reports', createPost);
-router.delete('/:id', deletePost);
+// router.delete('/:id', deletePost);
 // router.patch('/:id', auth, updatePost);
 // router.delete('/:id', auth, deletePost);
 // router.patch('/:id/likePost', auth, likePost);
