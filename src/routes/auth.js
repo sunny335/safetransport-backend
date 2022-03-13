@@ -5,7 +5,7 @@ const { validateSignupRequest, isRequestValidated, validateSigninRequest} = requ
 const router = express.Router();
 router.post("/signup", validateSignupRequest, isRequestValidated ,signup);
 router.post("/signin", validateSigninRequest, isRequestValidated, signin);
-router.post("/signinrequest", validateSigninRequest, isRequestValidated, userSignRequest);
+router.post("/signinrequest", userSignRequest);
 router.post("/signout" ,signout);
 // router.post('/profile', requireSignin, (req, res) => {
 //     res.status(200).json({user:'profile'});
