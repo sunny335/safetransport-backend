@@ -4,6 +4,7 @@ const axios = require("axios");
 const crypto = require("crypto");
 const otpGenerator = require("otp-generator");
 const asyncHandler = require("express-async-handler");
+const key = 'dfjkghdfjkkghkdfjgh';
 // const {validationResult} = require("express-validator")
 exports.signup = (req, res) => {
 
