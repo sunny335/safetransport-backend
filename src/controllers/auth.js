@@ -104,7 +104,7 @@ exports.userSignRequest = asyncHandler(async (req, res, next) => {
         contacts: `88${phone}`,
       },
     });
-    console.log('fullHash',fullHash);
+    console.log('fullHash', fullHash);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -133,37 +133,43 @@ exports.userVerifyAndSign = asyncHandler(async (req, res, next) => {
 
   if (newCalculatedHash === hashValue) {
     const { phone } = req.body;
+    const data = {
+      status: 'success',
+      phone: phone;
+    }
+    return data;
 
     // const phoneCode = `880${phone}`;
 
-    const exitstUser = await User.findOne({ phone });
+    // const exitstUser = await User.findOne({ Phone: req.body.phone });
 
-    if (exitstUser) {
-      // console.log("user is exist");
-      return res.json({
-        id: exitstUser._id,
-        phone: exitstUser.phone && exitstUser.phone,
-        name: exitstUser.name && exitstUser.name,
-        email: exitstUser.email && exitstUser.email,
-        city: exitstUser.city && exitstUser.city,
-        address: exitstUser.address && exitstUser.address,
-        token: generateToken(exitstUser._id),
-      });
-    }
 
-    const user = await User.create({
-      phone,
-    });
+    // if (exitstUser) {
 
-    if (user) {
-      res.status(200).json({
-        id: user._id,
-        phone: user.phone,
-        token: generateToken(user._id),
-      });
-    } else {
-      res.status(401).json({ message: "Something wrong to creating user" });
-    }
+    //   return res.json({
+    //     id: exitstUser._id,
+    //     phone: exitstUser.phone && exitstUser.phone,
+    //     name: exitstUser.name && exitstUser.name,
+    //     email: exitstUser.email && exitstUser.email,
+    //     city: exitstUser.city && exitstUser.city,
+    //     address: exitstUser.address && exitstUser.address,
+    //     token: generateToken(exitstUser._id),
+    //   });
+    // }
+
+    // const user = await User.create({
+    //   phone,
+    // });
+
+    // if (user) {
+    //   res.status(200).json({
+    //     id: user._id,
+    //     phone: user.phone,
+    //     token: generateToken(user._id),
+    //   });
+    // } else {
+    //   res.status(401).json({ message: "Something wrong to creating user" });
+    // }
   }
   //   return false;
 
