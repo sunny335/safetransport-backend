@@ -137,7 +137,7 @@ exports.userVerifyAndSign = asyncHandler(async (req, res, next) => {
       status: 'success',
       phone: phone,
     }
-    return data;
+    return res.json(data);
 
     // const phoneCode = `880${phone}`;
 
