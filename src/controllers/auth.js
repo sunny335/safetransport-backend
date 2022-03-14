@@ -135,7 +135,7 @@ exports.userVerifyAndSign = asyncHandler(async (req, res, next) => {
     const { phone } = req.body;
     const data = {
       status: 'success',
-      phone: phone;
+      phone: phone,
     }
     return data;
 
