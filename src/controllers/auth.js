@@ -17,7 +17,7 @@ exports.signup = (req, res) => {
       return res.status(400).json({
         message: "User already registered",
       });
-    const { firstName, lastName, email, password,signupAs,Phone } = req.body;
+    const { firstName, lastName, email, password, signupAs, Phone } = req.body;
     const _user = new User({
       firstName,
       lastName,
@@ -46,22 +46,22 @@ exports.signup = (req, res) => {
 
 exports.signin = (req, res) => {
   const phone = req.body && req.body.phone;
-   console.log("Hello Request", "phone is : ", phone && phone);
+  console.log("Hello Request", "phone is : ", phone && phone);
   User.findOne({ email: req.body.email }).exec((error, user) => {
     if (error) return res.status(400).json({ error });
     if (user) {
       if (user.authenticate(req.body.password)) {
-        const token = jwt.sign({ _id: user._id , role: user.role}, process.env.JWT_SECRET, {
+        const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET, {
           expiresIn: "1h",
         });
-        const {_id, firstName, lastName, email, role, fullName,signupAs,Phone } = user;
+        const { _id, firstName, lastName, email, role, fullName, signupAs, Phone } = user;
         res.status(200).json({
           token,
-          user: { firstName, lastName,email, role,fullName,_id,signupAs,Phone},
+          user: { firstName, lastName, email, role, fullName, _id, signupAs, Phone },
         });
 
 
-      }else{
+      } else {
         res.status(404).json({
           message: "Invalid Password",
         })
@@ -104,13 +104,72 @@ exports.userSignRequest = asyncHandler(async (req, res, next) => {
         contacts: `88${phone}`,
       },
     });
-    console.log(sendOTP);
+    console.log('fullHash',fullHash);
   } catch (error) {
     res.status(500).json(error);
   }
 
   res.json(fullHash);
 });
+
+exports.userVerifyAndSign = asyncHandler(async (req, res, next) => {
+  const phone = req.body.phone;
+  const otp = req.body.otp;
+  const hash = req.body.hash;
+
+  let [hashValue, expires] = hash.split(".");
+  // Check if expiry time has passed
+  let now = Date.now();
+  if (now > parseInt(expires)) {
+    return res.json("Otp is expired");
+  }
+  // Calculate new hash with the same key and the same algorithm
+  let data = `${phone}.${otp}.${expires}`;
+  let newCalculatedHash = crypto
+    .createHmac("sha256", key)
+    .update(data)
+    .digest("hex");
+  // Match the hashes
+
+  if (newCalculatedHash === hashValue) {
+    const { phone } = req.body;
+
+    // const phoneCode = `880${phone}`;
+
+    const exitstUser = await User.findOne({ phone });
+
+    if (exitstUser) {
+      // console.log("user is exist");
+      return res.json({
+        id: exitstUser._id,
+        phone: exitstUser.phone && exitstUser.phone,
+        name: exitstUser.name && exitstUser.name,
+        email: exitstUser.email && exitstUser.email,
+        city: exitstUser.city && exitstUser.city,
+        address: exitstUser.address && exitstUser.address,
+        token: generateToken(exitstUser._id),
+      });
+    }
+
+    const user = await User.create({
+      phone,
+    });
+
+    if (user) {
+      res.status(200).json({
+        id: user._id,
+        phone: user.phone,
+        token: generateToken(user._id),
+      });
+    } else {
+      res.status(401).json({ message: "Something wrong to creating user" });
+    }
+  }
+  //   return false;
+
+  res.status(500).json({ message: "otp doesn't virifed" });
+});
+
 
 
 
