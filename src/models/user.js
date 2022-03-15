@@ -29,12 +29,6 @@ const userSchema = new mongoose.Schema({
         min: 11,
         max: 12
     },
-    valid: {
-        type: String,
-        required: true,
-        trim: true,
-        index: true,
-    },
     username: {
         type: String,
         required: true,
