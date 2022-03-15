@@ -139,12 +139,13 @@ exports.userVerifyAndSign = asyncHandler(async (req, res, next) => {
       status: 'success',
       phone: phone,
     }
-    const exitstUser = await User.findOne({ Phone: req.body.phone });
-    console.log('exist user==================',exitstUser)
+    const exitstUser = await User.findOne({ _id: req.body.id });
+    console.log('exist user==================', exitstUser)
     if (exitstUser) {
       const valid = { valid: 'true' };
+      const filter = { _id: req.body.id };
       const updatedPost = await User.findOneAndUpdate(
-        req.body.phone,
+        filter,
         valid,
         {
           new: true
