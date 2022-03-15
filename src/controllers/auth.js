@@ -17,7 +17,7 @@ exports.signup = (req, res) => {
       return res.status(400).json({
         message: "User already registered",
       });
-    const { firstName, lastName, email, password, signupAs, Phone,valid } = req.body;
+    const { firstName, lastName, email, password, signupAs, Phone, valid } = req.body;
     const _user = new User({
       firstName,
       lastName,
@@ -55,10 +55,10 @@ exports.signin = (req, res) => {
         const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET, {
           expiresIn: "1h",
         });
-        const { _id, firstName, lastName, email, role, fullName, signupAs, Phone,valid } = user;
+        const { _id, firstName, lastName, email, role, fullName, signupAs, Phone, valid } = user;
         res.status(200).json({
           token,
-          user: { firstName, lastName, email, role, fullName, _id, signupAs, Phone,valid },
+          user: { firstName, lastName, email, role, fullName, _id, signupAs, Phone, valid },
         });
 
 
@@ -141,9 +141,13 @@ exports.userVerifyAndSign = asyncHandler(async (req, res, next) => {
     }
     const exitstUser = await User.findOne({ Phone: req.body.phone });
     if (exitstUser) {
+      const valid = { valid: 'true' };
       const updatedPost = await PostMessage.findOneAndUpdate(
         req.body.phone,
-        { valid: true }
+        valid,
+        {
+          new: true
+        }
       );
     }
 
