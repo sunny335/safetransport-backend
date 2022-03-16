@@ -102,11 +102,11 @@ exports.userSignRequest = asyncHandler(async (req, res, next) => {
         senderid: "8809612436347",
         type: "text",
         scheduledDateTime: "",
-        msg: `BardharaMart OTP is : ${otp}. Do not Share. It will expire in 5 minutes`,
+        msg: `Safe Transport OTP is : ${otp}. Do not Share. It will expire in 5 minutes`,
         contacts: `88${phone}`,
       },
     });
-    console.log('fullHash', fullHash);
+    console.log('fullHash', sendOTP);
   } catch (error) {
     res.status(500).json(error);
   }
