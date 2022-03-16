@@ -82,8 +82,10 @@ exports.userSignRequest = asyncHandler(async (req, res, next) => {
 
   const otp = otpGenerator.generate(6, {
     alphabets: false,
-    upperCase: false,
+    upperCaseAlphabets: false,
+    lowerCaseAlphabets:false,
     specialChars: false,
+    digits:true,
   });
   const ttl = 5 * 60 * 1000; //5 Minutes in miliseconds
   const expires = Date.now() + ttl; //timestamp to 5 minutes in the future
