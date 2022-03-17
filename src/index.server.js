@@ -15,7 +15,7 @@ const productRoutes = require('./routes/product');
 const cartRoutes = require('./routes/cart');
 const ReportRoutes = require('./routes/reports');
 const EmergencyPhone = require('./routes/EmergencyPhone');
-
+const policeRoutes = require('./routes/police');
 
 // environment variable or you can say constants
 env.config();
@@ -38,6 +38,7 @@ app.use('/public', express.static(path.join(__dirname, 'uploads')));
 // app.use(bodyParser.urlencoded({extended: true}));
 app.use('/api', authRoutes);
 app.use('/api', adminRoutes);
+app.use('/api', policeRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', productRoutes);
 app.use('/api', cartRoutes);
