@@ -17,7 +17,7 @@ exports.signup = (req, res) => {
       return res.status(400).json({
         message: "User already registered",
       });
-    const { firstName, lastName, email, password, signupAs, Phone, valid } = req.body;
+    const { firstName, lastName, email, password, signupAs, Phone, valid,zone,Designation,accountStatus } = req.body;
     const _user = new User({
       firstName,
       lastName,
