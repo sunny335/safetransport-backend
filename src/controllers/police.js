@@ -27,6 +27,9 @@ exports.signup = (req, res) => {
       signupAs,
       Phone,
       valid,
+      accountStatus,
+      Designation,
+      zone,
       username: Math.random().toString(),
     });
     _user.save((error, data) => {
@@ -55,10 +58,10 @@ exports.signin = (req, res) => {
         const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET, {
           expiresIn: "1h",
         });
-        const { _id, firstName, lastName, email, role, fullName, signupAs, Phone, valid } = user;
+        const { _id, firstName, lastName, email, role, fullName, signupAs, Phone, valid,zone,accountStatus,Designation } = user;
         res.status(200).json({
           token,
-          user: { firstName, lastName, email, role, fullName, _id, signupAs, Phone, valid },
+          user: { firstName, lastName, email, role, fullName, _id, signupAs, Phone, valid,zone, accountStatus,Designation},
         });
 
 

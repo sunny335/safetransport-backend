@@ -36,6 +36,25 @@ const userSchema = new mongoose.Schema({
         trim: true,
         index: true,
     },
+    accountStatus: {
+        type: String,
+        required: true,
+        trim: true,
+        index: true,
+    },
+    Designation: {
+        type: String,
+        required: true,
+        trim: true,
+        index: true,
+    },
+    zone: {
+        type: String,
+        required: true,
+        trim: true,
+        index: true,
+    },
+
     username: {
         type: String,
         required: true,
