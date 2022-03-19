@@ -17,7 +17,7 @@ exports.signup = (req, res) => {
       return res.status(400).json({
         message: "User already registered",
       });
-    const { firstName, lastName, email, password, signupAs, Phone, valid,zone,Designation,accountStatus } = req.body;
+    const { firstName, lastName, email, password, signupAs, Phone, valid, zone, Designation, accountStatus } = req.body;
     const _user = new User({
       firstName,
       lastName,
@@ -58,10 +58,10 @@ exports.signin = (req, res) => {
         const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET, {
           expiresIn: "1h",
         });
-        const { _id, firstName, lastName, email, role, fullName, signupAs, Phone, valid,zone,accountStatus,Designation } = user;
+        const { _id, firstName, lastName, email, role, fullName, signupAs, Phone, valid, zone, accountStatus, Designation } = user;
         res.status(200).json({
           token,
-          user: { firstName, lastName, email, role, fullName, _id, signupAs, Phone, valid,zone, accountStatus,Designation},
+          user: { firstName, lastName, email, role, fullName, _id, signupAs, Phone, valid, zone, accountStatus, Designation },
         });
 
 
@@ -86,9 +86,9 @@ exports.userSignRequest = asyncHandler(async (req, res, next) => {
   const otp = otpGenerator.generate(6, {
     alphabets: false,
     upperCaseAlphabets: false,
-    lowerCaseAlphabets:false,
+    lowerCaseAlphabets: false,
     specialChars: false,
-    digits:true,
+    digits: true,
   });
   const ttl = 5 * 60 * 1000; //5 Minutes in miliseconds
   const expires = Date.now() + ttl; //timestamp to 5 minutes in the future
@@ -198,6 +198,26 @@ exports.userVerifyAndSign = asyncHandler(async (req, res, next) => {
 });
 
 
+exports.userAccountStatus = asyncHandler(async (req, res, next) => {
+  const phone = req.body && req.body.phone;
+  console.log("Hello Request", "phone is : ", phone && phone);
+  User.findOne({ email: req.body.email }).exec((error, user) => {
+    if (error) return res.status(400).json({ error });
+    if (user) {
+      const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET, {
+        expiresIn: "1h",
+      });
+      const { _id, firstName, lastName, email, role, fullName, signupAs, Phone, valid, zone, accountStatus, Designation } = user;
+      res.status(200).json({
+        token,
+        user: { firstName, lastName, email, role, fullName, _id, signupAs, Phone, valid, zone, accountStatus, Designation },
+      });
+
+    } else {
+      return res.status(400).json({ message: "Somethings went wrong" });
+    }
+  });
+});
 
 
 exports.signout = (req, res) => {

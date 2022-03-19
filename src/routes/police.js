@@ -1,5 +1,5 @@
 const express = require("express");
-const { signup, signin,signout,userSignRequest,userVerifyAndSign } = require("../controllers/police");
+const { signup, signin,signout,userSignRequest,userVerifyAndSign,userAccountStatus } = require("../controllers/police");
 const { validateSignupRequest, isRequestValidated, validateSigninRequest} = require("../validators/auth");
 
 const router = express.Router();
@@ -7,6 +7,7 @@ router.post("/policesignup", validateSignupRequest, isRequestValidated ,signup);
 router.post("/policesignin", validateSigninRequest, isRequestValidated, signin);
 router.post("/policesigninrequest", userSignRequest);
 router.post("/policeuserVerifyAndSign", userVerifyAndSign);
+router.post("/userAccountStatus", userAccountStatus);
 
 router.post("/policesignout" ,signout);
 // router.post('/profile', requireSignin, (req, res) => {
