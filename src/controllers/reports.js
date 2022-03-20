@@ -2,7 +2,7 @@ const express = require('express');
 
 const PostMessage = require('../models/reports.js');
 const mongoose = require('mongoose');
-fetch = import fetch from 'node-fetch';
+fetch = require('node-fetch');
 // const router = express.Router();
 
 //  exports.getPosts = async (req, res) => {
