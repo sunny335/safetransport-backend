@@ -127,7 +127,7 @@ exports.createPost = async (req, res) => {
 };
 
 
-exports.createNotify = (req, res) => {
+exports.createNotify = async(req, res) => {
 
   var notification = {
     "title": 'Title of notification',
