@@ -60,7 +60,7 @@ exports.getPosts = (req, res) => {
 
 exports.createPost = async (req, res) => {
   // const post = req.body;
-
+console.log('fdfdf',);
   var notification = {
     "title": 'Title of notification',
     'Text': 'Subtitle'
