@@ -81,10 +81,7 @@ exports.createPost = async (req, res) => {
     // 'notification_ids': fcm_tockens
   }
 
-
   let fcmkey = 'AAAAQT-h5Ww:APA91bEuQDmggn98R-Ab9ulcNrEnGF_NeqHEp4bnpnP7XTzKPlsLZZ_gvC5wheeqhXi3yuoz0ane_ZaE2097HzIKCjtZCu84tRIp_FAIHOlM7GauF7EQ7boIAuS5L88iSMbwMYdWFWVs'
-
-
 
   // await axios
   //   .post(
@@ -105,15 +102,14 @@ exports.createPost = async (req, res) => {
   //     console.log(error);
   //   });
 
-
   try {
 
-     fetch('https://fcm.googleapis.com/fcm/send', {
+    fetch('https://fcm.googleapis.com/fcm/send', {
       'method': 'POST',
       'headers': {
         'Authorization': 'key=AAAAQT-h5Ww:APA91bEuQDmggn98R-Ab9ulcNrEnGF_NeqHEp4bnpnP7XTzKPlsLZZ_gvC5wheeqhXi3yuoz0ane_ZaE2097HzIKCjtZCu84tRIp_FAIHOlM7GauF7EQ7boIAuS5L88iSMbwMYdWFWVs',
         'Content-Type': 'application/json'
-       },
+      },
 
       'body': JSON.stringify(notification_body)
     }).then(() => {
@@ -128,6 +124,56 @@ exports.createPost = async (req, res) => {
     res.status(409).json({ message: error.message });
     console.log(err);
   }
+};
+
+
+exports.createNotify = (req, res) => {
+
+  var notification = {
+    "title": 'Title of notification',
+    'Text': 'Subtitle'
+  };
+  var fcm_tockens = [];
+  var notification_body = {
+    'notification': notification,
+    // 'to': '',
+    // 'notification_ids': fcm_tockens
+  }
+  let fcmkey = 'AAAAQT-h5Ww:APA91bEuQDmggn98R-Ab9ulcNrEnGF_NeqHEp4bnpnP7XTzKPlsLZZ_gvC5wheeqhXi3yuoz0ane_ZaE2097HzIKCjtZCu84tRIp_FAIHOlM7GauF7EQ7boIAuS5L88iSMbwMYdWFWVs'
+
+  // await axios
+  //   .post(
+  //     "https://fcm.googleapis.com/fcm/send",
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `key=${fcmkey}`
+  //       },
+  //       body: JSON.stringify(notification_body)
+  //     }
+  //   )
+  //   .then(() => {
+  //     res.status(200).send('Notification send Successfull')
+  //   })
+  //   .catch(error => {
+  //     res.status(409).json({ message: error.message });
+  //     console.log(error);
+  //   });
+
+  fetch('https://fcm.googleapis.com/fcm/send', {
+    'method': 'POST',
+    'headers': {
+      'Authorization': 'key=AAAAQT-h5Ww:APA91bEuQDmggn98R-Ab9ulcNrEnGF_NeqHEp4bnpnP7XTzKPlsLZZ_gvC5wheeqhXi3yuoz0ane_ZaE2097HzIKCjtZCu84tRIp_FAIHOlM7GauF7EQ7boIAuS5L88iSMbwMYdWFWVs',
+      'Content-Type': 'application/json'
+    },
+
+    'body': JSON.stringify(notification_body)
+  }).then(() => {
+    res.status(200).send('Notification send Successfull')
+  }).catch((err) => {
+    res.status(400).send('somwthing wrong')
+    console.log(err)
+  })
 };
 
 // exports.deletePost = async (req, res) => {

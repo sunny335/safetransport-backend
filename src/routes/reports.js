@@ -5,6 +5,7 @@ const {
   // getPostsBySearch,
   // getPost,
   createPost,
+  createNotify,
   // updatePost,
   // likePost,
   // deletePost,
@@ -19,6 +20,8 @@ router.get('/getReportData', getPosts);
 // router.get('/:id', getPost);
 
 router.post('/reports', createPost);
+
+router.post('/createNotify', createNotify);
 // router.delete('/:id', deletePost);
 // router.patch('/:id', auth, updatePost);
 // router.delete('/:id', auth, deletePost);
