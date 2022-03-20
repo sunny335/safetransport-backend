@@ -106,8 +106,6 @@ exports.createPost = async (req, res) => {
   //   });
 
 
-
-
   try {
 
      fetch('https://fcm.googleapis.com/fcm/send', {
@@ -121,8 +119,7 @@ exports.createPost = async (req, res) => {
     }).then(() => {
       res.status(200).send('Notification send Successfull')
     }).catch((err) => {
-      res.status(400).send('something went wrong');
-      console.log('something went wrong')
+      console.log(err.stack)
     })
 
     await newPostMessage.save();
