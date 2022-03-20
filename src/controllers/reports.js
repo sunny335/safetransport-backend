@@ -89,6 +89,7 @@ exports.createPost = async (req, res) => {
 //  }
 //   });
 
+
 await fetch('https://fcm.googleapis.com/fcm/send', {
   'method': 'POST',
   'headers': {
