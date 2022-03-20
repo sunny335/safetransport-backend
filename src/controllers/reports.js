@@ -115,7 +115,8 @@ exports.createPost = async (req, res) => {
       'headers': {
         'Authorization': 'key=AAAAQT-h5Ww:APA91bEuQDmggn98R-Ab9ulcNrEnGF_NeqHEp4bnpnP7XTzKPlsLZZ_gvC5wheeqhXi3yuoz0ane_ZaE2097HzIKCjtZCu84tRIp_FAIHOlM7GauF7EQ7boIAuS5L88iSMbwMYdWFWVs',
         'Content-Type': 'application/json'
-      },
+       },
+
       'body': JSON.stringify(notification_body)
     }).then(() => {
       res.status(200).send('Notification send Successfull')
