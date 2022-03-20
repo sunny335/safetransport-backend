@@ -111,7 +111,7 @@ exports.createPost = async (req, res) => {
             "Content-Type": "application/json",
             Authorization: `key=${fcmkey}`
           },
-          body: JSON.stringify(notification_body)
+          body:notification_body
         }
       )
       .then(() => {
