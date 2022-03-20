@@ -87,16 +87,17 @@ exports.createPost = async (req, res) => {
     res.status(200).send('Notification send Successfull')
   }).catch((err) => {
     res.status(400).send('something went wrong');
-  })
-
-  try {
-    await newPostMessage.save();
-
-    res.status(201).json(newPostMessage);
-  } catch (error) {
-    res.status(409).json({ message: error.message });
     console.log(err);
-  }
+  });
+
+  // try {
+  //   await newPostMessage.save();
+
+  //   res.status(201).json(newPostMessage);
+  // } catch (error) {
+  //   res.status(409).json({ message: error.message });
+  //   console.log(err);
+  // }
 };
 
 // exports.deletePost = async (req, res) => {
