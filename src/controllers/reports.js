@@ -67,6 +67,7 @@ exports.createPost = async (req, res) => {
   };
   var fcm_tockens = [];
   var notification_body = {
+    'notification':notification,
     'notification_ids': fcm_tockens
   }
   const newPostMessage = new PostMessage({
