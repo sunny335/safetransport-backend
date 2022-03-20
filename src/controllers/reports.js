@@ -68,46 +68,24 @@ exports.createPost = async (req, res) => {
     createdAt: new Date().toISOString(),
   });
 
-
-
   var notification = {
-    "title": 'Title of notification',
-    'Text': 'Subtitle'
+    "title": 'New Report Created',
+    'text': 'Please check'
   };
-  var fcm_tockens = [];
   var notification_body = {
     'notification': notification,
-    'to': '',
-    // 'notification_ids': fcm_tockens
+    'to': '/topics/topic',
   }
 
-  let fcmkey = 'AAAAQT-h5Ww:APA91bEuQDmggn98R-Ab9ulcNrEnGF_NeqHEp4bnpnP7XTzKPlsLZZ_gvC5wheeqhXi3yuoz0ane_ZaE2097HzIKCjtZCu84tRIp_FAIHOlM7GauF7EQ7boIAuS5L88iSMbwMYdWFWVs'
-
-  // await axios
-  //   .post(
-  //     "https://fcm.googleapis.com/fcm/send",
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `key=${fcmkey}`
-  //       },
-  //       body: JSON.stringify(notification_body)
-  //     }
-  //   )
-  //   .then(() => {
-  //     res.status(200).send('Notification send Successfull')
-  //   })
-  //   .catch(error => {
-  //     res.status(409).json({ message: error.message });
-  //     console.log(error);
-  //   });
 
   try {
 
-    fetch('https://fcm.googleapis.com/fcm/send', {
+    await newPostMessage.save();
+    res.status(201).json(newPostMessage);
+      fetch('https://fcm.googleapis.com/fcm/send', {
       'method': 'POST',
       'headers': {
-        'Authorization': 'key=AAAAQT-h5Ww:APA91bEuQDmggn98R-Ab9ulcNrEnGF_NeqHEp4bnpnP7XTzKPlsLZZ_gvC5wheeqhXi3yuoz0ane_ZaE2097HzIKCjtZCu84tRIp_FAIHOlM7GauF7EQ7boIAuS5L88iSMbwMYdWFWVs',
+        'Authorization': 'key=' + 'AAAAQT-h5Ww:APA91bEuQDmggn98R-Ab9ulcNrEnGF_NeqHEp4bnpnP7XTzKPlsLZZ_gvC5wheeqhXi3yuoz0ane_ZaE2097HzIKCjtZCu84tRIp_FAIHOlM7GauF7EQ7boIAuS5L88iSMbwMYdWFWVs',
         'Content-Type': 'application/json'
       },
 
@@ -115,11 +93,10 @@ exports.createPost = async (req, res) => {
     }).then(() => {
       res.status(200).send('Notification send Successfull')
     }).catch((err) => {
-      console.log(err.stack)
+      res.status(400).send('somwthing wrong')
+      console.log(err)
     })
 
-    await newPostMessage.save();
-    res.status(201).json(newPostMessage);
   } catch (error) {
     res.status(409).json({ message: error.message });
     console.log(err);
@@ -130,43 +107,18 @@ exports.createPost = async (req, res) => {
 exports.createNotify = async (req, res) => {
 
   var notification = {
-    "title": 'Title of notification',
-    'Text': 'Subtitle'
+    "title": 'New Report Created',
+    'text': 'Please check'
   };
-  var fcm_tockens = [];
   var notification_body = {
     'notification': notification,
     'to': '/topics/topic',
-    // 'notification_ids': fcm_tockens
   }
-  let fcmkey = 'AAAAQT-h5Ww:APA91bEuQDmggn98R-Ab9ulcNrEnGF_NeqHEp4bnpnP7XTzKPlsLZZ_gvC5wheeqhXi3yuoz0ane_ZaE2097HzIKCjtZCu84tRIp_FAIHOlM7GauF7EQ7boIAuS5L88iSMbwMYdWFWVs'
-
-  // await axios
-  //   .post(
-  //     "https://fcm.googleapis.com/fcm/send",
-  //     { body: JSON.stringify(notification_body) },
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `key=${fcmkey}`
-  //       }
-
-  //     }
-  //   )
-  //   .then(() => {
-  //     res.status(200).send('Notification send Successfull')
-  //   })
-  //   .catch(error => {
-  //     res.status(409).json({ message: error.message });
-  //     console.log(error);
-  //   });
-
-
 
   fetch('https://fcm.googleapis.com/fcm/send', {
     'method': 'POST',
     'headers': {
-      'Authorization': 'key='+'AAAAQT-h5Ww:APA91bEuQDmggn98R-Ab9ulcNrEnGF_NeqHEp4bnpnP7XTzKPlsLZZ_gvC5wheeqhXi3yuoz0ane_ZaE2097HzIKCjtZCu84tRIp_FAIHOlM7GauF7EQ7boIAuS5L88iSMbwMYdWFWVs',
+      'Authorization': 'key=' + 'AAAAQT-h5Ww:APA91bEuQDmggn98R-Ab9ulcNrEnGF_NeqHEp4bnpnP7XTzKPlsLZZ_gvC5wheeqhXi3yuoz0ane_ZaE2097HzIKCjtZCu84tRIp_FAIHOlM7GauF7EQ7boIAuS5L88iSMbwMYdWFWVs',
       'Content-Type': 'application/json'
     },
 
