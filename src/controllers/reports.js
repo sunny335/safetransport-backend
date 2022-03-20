@@ -127,7 +127,7 @@ exports.createPost = async (req, res) => {
 };
 
 
-exports.createNotify = async(req, res) => {
+exports.createNotify = async (req, res) => {
 
   var notification = {
     "title": 'Title of notification',
@@ -144,12 +144,13 @@ exports.createNotify = async(req, res) => {
   await axios
     .post(
       "https://fcm.googleapis.com/fcm/send",
+      { body: JSON.stringify(notification_body) },
       {
         headers: {
           "Content-Type": "application/json",
           Authorization: `key=${fcmkey}`
-        },
-        body: JSON.stringify(notification_body)
+        }
+
       }
     )
     .then(() => {
@@ -159,6 +160,8 @@ exports.createNotify = async(req, res) => {
       res.status(409).json({ message: error.message });
       console.log(error);
     });
+
+
 
   // fetch('https://fcm.googleapis.com/fcm/send', {
   //   'method': 'POST',
