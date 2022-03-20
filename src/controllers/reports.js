@@ -80,15 +80,6 @@ exports.createPost = async (req, res) => {
   }
 
 
-//   const sendOTP = await axios({
-//     method: "post",
-//     url: "https://fcm.googleapis.com/fcm/send",
-//     headers: {
-//       Authorization: 'key='
-//         + 'AAAAQT-h5Ww:APA91bEuQDmggn98R-Ab9ulcNrEnGF_NeqHEp4bnpnP7XTzKPlsLZZ_gvC5wheeqhXi3yuoz0ane_ZaE2097HzIKCjtZCu84tRIp_FAIHOlM7GauF7EQ7boIAuS5L88iSMbwMYdWFWVs',
-//       Content-Type: 'application/json'
-//  }
-//   });
 
 
 await fetch('https://fcm.googleapis.com/fcm/send', {
