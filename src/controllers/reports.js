@@ -69,7 +69,7 @@ exports.createPost = async (req, res) => {
   });
 
   var notification = {
-    "title": 'New Report Created',
+    "title": `New Report Created:${post.ReportType}`,
     'text': 'Please check'
   };
   var notification_body = {
