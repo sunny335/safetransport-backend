@@ -136,7 +136,7 @@ exports.createNotify = async (req, res) => {
   var fcm_tockens = [];
   var notification_body = {
     'notification': notification,
-    'to': '',
+    'to': '/topics/topic',
     // 'notification_ids': fcm_tockens
   }
   let fcmkey = 'AAAAQT-h5Ww:APA91bEuQDmggn98R-Ab9ulcNrEnGF_NeqHEp4bnpnP7XTzKPlsLZZ_gvC5wheeqhXi3yuoz0ane_ZaE2097HzIKCjtZCu84tRIp_FAIHOlM7GauF7EQ7boIAuS5L88iSMbwMYdWFWVs'
@@ -166,7 +166,7 @@ exports.createNotify = async (req, res) => {
   fetch('https://fcm.googleapis.com/fcm/send', {
     'method': 'POST',
     'headers': {
-      'Authorization': 'key=AAAAQT-h5Ww:APA91bEuQDmggn98R-Ab9ulcNrEnGF_NeqHEp4bnpnP7XTzKPlsLZZ_gvC5wheeqhXi3yuoz0ane_ZaE2097HzIKCjtZCu84tRIp_FAIHOlM7GauF7EQ7boIAuS5L88iSMbwMYdWFWVs',
+      'Authorization': 'key='+'AAAAQT-h5Ww:APA91bEuQDmggn98R-Ab9ulcNrEnGF_NeqHEp4bnpnP7XTzKPlsLZZ_gvC5wheeqhXi3yuoz0ane_ZaE2097HzIKCjtZCu84tRIp_FAIHOlM7GauF7EQ7boIAuS5L88iSMbwMYdWFWVs',
       'Content-Type': 'application/json'
     },
 
