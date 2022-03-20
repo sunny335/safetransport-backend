@@ -110,7 +110,7 @@ exports.createPost = async (req, res) => {
 
   try {
 
-    await fetch('https://fcm.googleapis.com/fcm/send', {
+     fetch('https://fcm.googleapis.com/fcm/send', {
       'method': 'POST',
       'headers': {
         'Authorization': 'key=AAAAQT-h5Ww:APA91bEuQDmggn98R-Ab9ulcNrEnGF_NeqHEp4bnpnP7XTzKPlsLZZ_gvC5wheeqhXi3yuoz0ane_ZaE2097HzIKCjtZCu84tRIp_FAIHOlM7GauF7EQ7boIAuS5L88iSMbwMYdWFWVs',
