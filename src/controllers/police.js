@@ -103,7 +103,7 @@ exports.userSignRequest = asyncHandler(async (req, res, next) => {
       method: "post",
       url: "http://sms.netitbd.com/smsapi",
       data: {
-        api_key: "C20008695f48e97b8a7d15.42542556",
+        api_key: `${process.env.API}`,
         senderid: "8809612436347",
         type: "text",
         scheduledDateTime: "",
@@ -202,6 +202,25 @@ exports.policeAccountStatus = asyncHandler(async (req, res, next) => {
   const accountStatusData = req.body.status;
   const email = req.body.email;
   const exitstUser = await User.findOne({ _id: req.body.id });
+
+  try {
+    const sendOTP = await axios({
+      method: "post",
+      url: "http://sms.netitbd.com/smsapi",
+      data: {
+        api_key: `${process.env.API}`,
+        senderid: "8809612436347",
+        type: "text",
+        scheduledDateTime: "",
+        msg: `Safe Transport,we reviewed your account. your account is successfully verified. you can login and use our service now`,
+        contacts: `88${phone}`,
+      },
+    });
+    console.log('fullHash', sendOTP);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+
   if (exitstUser) {
     const accountStatus = { accountStatus: accountStatusData };
     const filter = { _id: req.body.id };
@@ -212,20 +231,20 @@ exports.policeAccountStatus = asyncHandler(async (req, res, next) => {
         new: true
       }
     );
-    await axios({
-      method: "post",
-      url: "http://sms.netitbd.com/smsapi",
-      data: {
-        api_key: "C20008695f48e97b8a7d15.42542556",
-        senderid: "8809612436347",
-        type: "text",
-        scheduledDateTime: "",
-        msg: `Safe Transport,we reviewed your account. your account is successfully verified. you can login and use our service now`,
-        contacts: `88${phone}`,
-      },
-    });
+    // await axios({
+    //   method: "post",
+    //   url: "http://sms.netitbd.com/smsapi",
+    //   data: {
+    //     api_key: `${process.env.API}`,
+    //     senderid: "8809612436347",
+    //     type: "text",
+    //     scheduledDateTime: "",
+    //     msg: `Safe Transport,we reviewed your account. your account is successfully verified. you can login and use our service now`,
+    //     contacts: `88${phone}`,
+    //   },
+    // });
 
-    return res.json(accountStatus);
+    // return res.json(accountStatus);
   };
 });
 
