@@ -17,7 +17,7 @@ exports.signup = (req, res) => {
       return res.status(400).json({
         message: "User already registered",
       });
-    const { firstName, lastName, email, password, signupAs, Phone, valid,zone,Designation,accountStatus } = req.body;
+    const { firstName, lastName, email, password, signupAs, Phone, valid, zone, Designation, accountStatus } = req.body;
     const _user = new User({
       firstName,
       lastName,
@@ -58,10 +58,10 @@ exports.signin = (req, res) => {
         const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET, {
           expiresIn: "1h",
         });
-        const { _id, firstName, lastName, email, role, fullName, signupAs, Phone, valid,zone,accountStatus,Designation } = user;
+        const { _id, firstName, lastName, email, role, fullName, signupAs, Phone, valid, zone, accountStatus, Designation } = user;
         res.status(200).json({
           token,
-          user: { firstName, lastName, email, role, fullName, _id, signupAs, Phone, valid,zone, accountStatus,Designation},
+          user: { firstName, lastName, email, role, fullName, _id, signupAs, Phone, valid, zone, accountStatus, Designation },
         });
 
 
@@ -86,9 +86,9 @@ exports.userSignRequest = asyncHandler(async (req, res, next) => {
   const otp = otpGenerator.generate(6, {
     alphabets: false,
     upperCaseAlphabets: false,
-    lowerCaseAlphabets:false,
+    lowerCaseAlphabets: false,
     specialChars: false,
-    digits:true,
+    digits: true,
   });
   const ttl = 5 * 60 * 1000; //5 Minutes in miliseconds
   const expires = Date.now() + ttl; //timestamp to 5 minutes in the future
@@ -197,15 +197,52 @@ exports.userVerifyAndSign = asyncHandler(async (req, res, next) => {
   res.status(500).json({ message: "otp doesn't virifed" });
 });
 
+exports.policeAccountStatus = asyncHandler(async (req, res, next) => {
+  const phone = req.body.phone;
+  const accountStatusData = req.body.status;
+  const email = req.body.email;
+  const exitstUser = await User.findOne({ _id: req.body.id });
+  if (exitstUser) {
+    const accountStatus = { accountStatus: accountStatusData };
+    const filter = { _id: req.body.id };
+    const updatedPost = await User.findOneAndUpdate(
+      filter,
+      accountStatus,
+      {
+        new: true
+      }
+    );
+
+    try {
+      const sendOTP = await axios({
+        method: "post",
+        url: "http://sms.netitbd.com/smsapi",
+        data: {
+          api_key: "C20008695f48e97b8a7d15.42542556",
+          senderid: "8809612436347",
+          type: "text",
+          scheduledDateTime: "",
+          msg: `Safe Transport,we reviewed your account. your account is successfully verified. you can login and use our service now`,
+          contacts: `88${phone}`,
+        },
+      });
+      console.log('fullHash', sendOTP);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+    return res.json(accountStatus);
+  }
+}
+
 
 
 
 exports.signout = (req, res) => {
-  res.clearCookie('token');
-  res.status(200).json({
-    message: 'Signout successfully...!',
-  });
-};
+    res.clearCookie('token');
+    res.status(200).json({
+      message: 'Signout successfully...!',
+    });
+  };
 
 
 exports.allAdmins = (req, res) => {
