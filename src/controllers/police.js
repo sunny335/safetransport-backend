@@ -17,7 +17,7 @@ exports.signup = (req, res) => {
       return res.status(400).json({
         message: "User already registered",
       });
-    const { firstName, lastName, email, password, signupAs, Phone, valid, zone, Designation, accountStatus } = req.body;
+    const { firstName, lastName, email, password, signupAs, Phone, valid, zone, Designation, accountStatus,nid } = req.body;
     const _user = new User({
       firstName,
       lastName,
@@ -30,6 +30,7 @@ exports.signup = (req, res) => {
       accountStatus,
       Designation,
       zone,
+      nid,
       username: Math.random().toString(),
     });
     _user.save((error, data) => {
@@ -58,10 +59,10 @@ exports.signin = (req, res) => {
         const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET, {
           expiresIn: "1h",
         });
-        const { _id, firstName, lastName, email, role, fullName, signupAs, Phone, valid, zone, accountStatus, Designation } = user;
+        const { _id, firstName, lastName, email, role, fullName, signupAs, Phone, valid, zone, accountStatus, Designation ,nid} = user;
         res.status(200).json({
           token,
-          user: { firstName, lastName, email, role, fullName, _id, signupAs, Phone, valid, zone, accountStatus, Designation },
+          user: { firstName, lastName, email, role, fullName, _id, signupAs, Phone, valid, zone, accountStatus, Designation ,nid},
         });
 
 

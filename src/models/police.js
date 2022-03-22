@@ -54,7 +54,12 @@ const userSchema = new mongoose.Schema({
         trim: true,
         index: true,
     },
-
+    nid: {
+        type: String,
+        required: true,
+        trim: true,
+        index: true,
+    },
     username: {
         type: String,
         required: true,
