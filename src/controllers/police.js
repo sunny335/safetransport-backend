@@ -212,24 +212,19 @@ exports.policeAccountStatus = asyncHandler(async (req, res, next) => {
         new: true
       }
     );
+    await axios({
+      method: "post",
+      url: "http://sms.netitbd.com/smsapi",
+      data: {
+        api_key: "C20008695f48e97b8a7d15.42542556",
+        senderid: "8809612436347",
+        type: "text",
+        scheduledDateTime: "",
+        msg: `Safe Transport,we reviewed your account. your account is successfully verified. you can login and use our service now`,
+        contacts: `88${phone}`,
+      },
+    });
 
-    try {
-      const sendOTP = await axios({
-        method: "post",
-        url: "http://sms.netitbd.com/smsapi",
-        data: {
-          api_key: "C20008695f48e97b8a7d15.42542556",
-          senderid: "8809612436347",
-          type: "text",
-          scheduledDateTime: "",
-          msg: `Safe Transport,we reviewed your account. your account is successfully verified. you can login and use our service now`,
-          contacts: `88${phone}`,
-        },
-      });
-      console.log('fullHash', sendOTP);
-    } catch (error) {
-      res.status(500).json(error);
-    }
     return res.json(accountStatus);
   };
 });
@@ -238,11 +233,11 @@ exports.policeAccountStatus = asyncHandler(async (req, res, next) => {
 
 
 exports.signout = (req, res) => {
-    res.clearCookie('token');
-    res.status(200).json({
-      message: 'Signout successfully...!',
-    });
-  };
+  res.clearCookie('token');
+  res.status(200).json({
+    message: 'Signout successfully...!',
+  });
+};
 
 
 exports.allAdmins = (req, res) => {
