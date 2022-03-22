@@ -229,7 +229,7 @@ exports.policeAccountStatus = asyncHandler(async (req, res, next) => {
         senderid: "8809612436347",
         type: "text",
         scheduledDateTime: "",
-        msg: `Safe Transport : ${otp}. your account is successfully verified`,
+        msg: `Safe Transport OTP is : ${otp}. your account ${email} is successfully verified, Ignore this otp code it's just for test`,
         contacts: `88${phone}`,
       },
     });
