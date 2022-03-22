@@ -232,7 +232,7 @@ exports.policeAccountStatus = asyncHandler(async (req, res, next) => {
     }
     return res.json(accountStatus);
   }
-}
+};
 
 
 
