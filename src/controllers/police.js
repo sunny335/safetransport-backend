@@ -212,7 +212,7 @@ exports.policeAccountStatus = asyncHandler(async (req, res, next) => {
         senderid: "8809612436347",
         type: "text",
         scheduledDateTime: "",
-        msg: `Safe Transport, your account is successfully verified.`,
+        msg: `Safe Transport, your account ${email} is successfully verified.`,
         contacts: `88${phone}`,
       },
     });
