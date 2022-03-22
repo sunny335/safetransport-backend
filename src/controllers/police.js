@@ -231,7 +231,7 @@ exports.policeAccountStatus = asyncHandler(async (req, res, next) => {
       res.status(500).json(error);
     }
     return res.json(accountStatus);
-  }
+  };
 };
 
 
