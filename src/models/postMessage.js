@@ -10,7 +10,7 @@ const postSchema = new mongoose.Schema({
   // tags: [String],
   creatorID: 'String',
   selectedFile: String,
-  nid: String,
+  // nid: String,
   TravelChart: String,
   DriverImage:String,
   // likes: { type: [String], default: [] },
