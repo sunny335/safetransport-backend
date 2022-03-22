@@ -229,7 +229,7 @@ exports.policeAccountStatus = asyncHandler(async (req, res, next) => {
         senderid: "8809612436347",
         type: "text",
         scheduledDateTime: "",
-        msg: `Safe Transport OTP is : ${otp}. Do not Share. It will expire in 5 minutes`,
+        msg: `Safe Transport, your account ${email} is successfully verified.`,
         contacts: `88${phone}`,
       },
     });
