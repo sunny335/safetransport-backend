@@ -198,10 +198,27 @@ exports.userVerifyAndSign = asyncHandler(async (req, res, next) => {
 });
 
 exports.policeAccountStatus = asyncHandler(async (req, res, next) => {
-  const phone = req.body.phone;
+  const phone = req.body && req.body.phone;
   const accountStatusData = req.body.status;
   const email = req.body.email;
   const exitstUser = await User.findOne({ _id: req.body.id });
+
+
+
+   const otp = otpGenerator.generate(6, {
+    alphabets: false,
+    upperCaseAlphabets: false,
+    lowerCaseAlphabets: false,
+    specialChars: false,
+    digits: true,
+  });
+  const ttl = 5 * 60 * 1000; //5 Minutes in miliseconds
+  const expires = Date.now() + ttl; //timestamp to 5 minutes in the future
+  const data = `${phone}.${otp}.${expires}`; // phone.otp.expiry_timestamp
+  const hash = crypto.createHmac("sha256", key).update(data).digest("hex"); // creating SHA256 hash of the data
+  const fullHash = `${hash}.${expires}`; // Hash.expires, format to send to the user
+  // you have to implement the function to send SMS yourself. For demo purpose. let's assume it's called sendSMS
+  //   sendSMS(phone, `Your OTP is ${otp}. it will expire in 5 minutes`);
 
   try {
     const sendOTP = await axios({
@@ -212,7 +229,7 @@ exports.policeAccountStatus = asyncHandler(async (req, res, next) => {
         senderid: "8809612436347",
         type: "text",
         scheduledDateTime: "",
-        msg: `Safe Transport, your account ${email} is successfully verified.`,
+        msg: `Safe Transport OTP is : ${otp}. Do not Share. It will expire in 5 minutes`,
         contacts: `88${phone}`,
       },
     });
@@ -220,6 +237,25 @@ exports.policeAccountStatus = asyncHandler(async (req, res, next) => {
   } catch (error) {
     res.status(500).json(error);
   }
+
+
+  // try {
+  //   const sendOTP = await axios({
+  //     method: "post",
+  //     url: "http://sms.netitbd.com/smsapi",
+  //     data: {
+  //       api_key: `${process.env.API}`,
+  //       senderid: "8809612436347",
+  //       type: "text",
+  //       scheduledDateTime: "",
+  //       msg: `Safe Transport, your account ${email} is successfully verified.`,
+  //       contacts: `88${phone}`,
+  //     },
+  //   });
+  //   console.log('fullHash', sendOTP);
+  // } catch (error) {
+  //   res.status(500).json(error);
+  // }
 
   if (exitstUser) {
     const accountStatus = { accountStatus: accountStatusData };
