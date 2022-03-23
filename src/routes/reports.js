@@ -10,6 +10,7 @@ const {
   // likePost,
   // deletePost,
   // commentPost,
+  updateReport,
 } = require('../controllers/reports.js');
 
 const router = express.Router();
@@ -22,6 +23,7 @@ router.get('/getReportData', getPosts);
 router.post('/reports', createPost);
 
 router.post('/createNotify', createNotify);
+router.post('/updateReport', updateReport);
 // router.delete('/:id', deletePost);
 // router.patch('/:id', auth, updatePost);
 // router.delete('/:id', auth, deletePost);

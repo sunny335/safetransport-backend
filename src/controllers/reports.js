@@ -35,6 +35,24 @@ exports.getPosts = (req, res) => {
   });
 };
 
+exports.updateReport = asyncHandler(async (req, res, next) => {
+  const id = req.body && req.body.id;
+  const ReportStatuss = req.body.ReportStatus;
+
+  const exitstUser = await User.findOne({ _id: req.body.id });
+  if (exitstUser) {
+    const ReportStatus = { ReportStatus: ReportStatuss };
+    const filter = { _id: req.body.id };
+    const updatedPost = await User.findOneAndUpdate(
+      filter,
+      ReportStatus,
+      {
+        new: true
+      }
+    );
+  }
+})
+
 // const getPostsBySearch = async (req, res) => {
 //   const { searchQuery, tags } = req.query;
 //   try {
@@ -77,7 +95,7 @@ exports.createPost = async (req, res) => {
     'to': '/topics/topic',
   }
   try {
-      await fetch('https://fcm.googleapis.com/fcm/send', {
+    await fetch('https://fcm.googleapis.com/fcm/send', {
       'method': 'POST',
       'headers': {
         'Authorization': 'key=' + 'AAAAQT-h5Ww:APA91bEuQDmggn98R-Ab9ulcNrEnGF_NeqHEp4bnpnP7XTzKPlsLZZ_gvC5wheeqhXi3yuoz0ane_ZaE2097HzIKCjtZCu84tRIp_FAIHOlM7GauF7EQ7boIAuS5L88iSMbwMYdWFWVs',
