@@ -7,7 +7,8 @@ const postSchema = new mongoose.Schema({
   reportedPhoto: String,
   ReportType: String,
   ReporterLocation: String,
-  ReporterData:Object,
+  ReporterData: Object,
+  ReportStatus: String,
   createdAt: {
     type: Date,
     default: new Date(),
