@@ -40,11 +40,11 @@ exports.updateReport = asyncHandler(async (req, res, next) => {
   const id = req.body && req.body.id;
   const ReportStatuss = req.body.ReportStatus;
 
-  const exitstUser = await User.findOne({ _id: req.body.id });
+  const exitstUser = await PostMessage.findOne({ _id: req.body.id });
   if (exitstUser) {
     const ReportStatus = { ReportStatus: ReportStatuss };
     const filter = { _id: req.body.id };
-    const updatedPost = await User.findOneAndUpdate(
+    const updatedPost = await PostMessage.findOneAndUpdate(
       filter,
       ReportStatus,
       {
