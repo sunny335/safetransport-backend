@@ -149,5 +149,3 @@ exports.createNotify = async (req, res) => {
 
 //   res.json(updatedPost);
 // };
-
-/
