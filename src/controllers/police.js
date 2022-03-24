@@ -161,39 +161,9 @@ exports.userVerifyAndSign = asyncHandler(async (req, res, next) => {
 
     return res.json(data);
 
-    // const phoneCode = `880${phone}`;
 
-    // const exitstUser = await User.findOne({ Phone: req.body.phone });
-
-
-    // if (exitstUser) {
-
-    //   return res.json({
-    //     id: exitstUser._id,
-    //     phone: exitstUser.phone && exitstUser.phone,
-    //     name: exitstUser.name && exitstUser.name,
-    //     email: exitstUser.email && exitstUser.email,
-    //     city: exitstUser.city && exitstUser.city,
-    //     address: exitstUser.address && exitstUser.address,
-    //     token: generateToken(exitstUser._id),
-    //   });
-    // }
-
-    // const user = await User.create({
-    //   phone,
-    // });
-
-    // if (user) {
-    //   res.status(200).json({
-    //     id: user._id,
-    //     phone: user.phone,
-    //     token: generateToken(user._id),
-    //   });
-    // } else {
-    //   res.status(401).json({ message: "Something wrong to creating user" });
-    // }
   }
-  //   return false;
+
 
   res.status(500).json({ message: "otp doesn't virifed" });
 });
